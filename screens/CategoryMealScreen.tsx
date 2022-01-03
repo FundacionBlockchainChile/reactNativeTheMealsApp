@@ -1,38 +1,49 @@
-import { View, Text, StyleSheet, Button } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  FlatList,
+  SafeAreaView,
+  StatusBar,
+} from 'react-native'
 import Colors from '../constants/Colors'
-
 import React from 'react'
+import MealItem from '../components/MealItem'
+import { MEALS } from '../data/dummy-data'
 
 const CategoryMealScreen = ({ navigation, route }: any) => {
-  const { categoryName } = route.params
+  const { categoryName, categoryId } = route.params
+
+  const displayMeals = MEALS.filter(
+    (meal) => meal.categoryIds.indexOf(categoryId) >= 0
+  )
+
+  const renderItem = ({ item }: any) => (
+    <MealItem
+      title={item.title}
+      onSelectMeal={() =>
+        navigation.push('MealDetailScreen', {
+          mealId: item.id,
+        })
+      }
+      duration={item.duration}
+      complexity={item.complexity}
+      affordability={item.affordability}
+      image={item.imageUrl}
+    />
+  )
 
   return (
     <View style={styles.screen}>
-      <Text>The CategoryMealScreen</Text>
       <Text style={styles.categoryTitle}>{categoryName}</Text>
-      {/* <Button
-        title="Go Meal Details"
-        onPress={() =>
-          navigation.navigate('MealDetailScreen', {
-            mealId: 21,
-            info: 'lorem ipsum seclorum...',
-          })
-        }
-      />
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-      <Button title="popToTop" onPress={() => navigation.popToTop()} />
-      <Button
-        title="replace"
-        onPress={() => navigation.replace('FiltersScreen')}
-      />
-      <Button
-        title="Go to Meals"
-        onPress={() => navigation.push('CategoryMealScreen')}
-      />
-      <Button
-        title="Go to Categories"
-        onPress={() => navigation.push('CategoriesScreen')}
-      /> */}
+      <SafeAreaView style={styles.container}>
+        <FlatList
+          data={displayMeals}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
+      </SafeAreaView>
     </View>
   )
 }
@@ -40,12 +51,27 @@ const CategoryMealScreen = ({ navigation, route }: any) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
+  },
+  container: {
+    flex: 1,
+    marginTop: StatusBar.currentHeight || 0,
+    width: '95%',
+  },
+  item: {
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    backgroundColor: 'black',
   },
   categoryTitle: {
     fontFamily: 'ariana',
     fontSize: 40,
+    color: Colors.primaryColor,
+  },
+  title: {
+    fontSize: 32,
     color: Colors.secondaryColor,
   },
 })

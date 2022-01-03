@@ -72,9 +72,9 @@ const App = () => {
           <Stack.Screen
             name="CategoryMealScreen"
             component={CategoryMealScreen}
-            options={{
-              headerTitle: 'Meal Categories',
-            }}
+            options={({ route }: any) => ({
+              headerTitle: route.params.categoryName,
+            })}
           />
           <Stack.Screen
             name="FavoritesScreen"

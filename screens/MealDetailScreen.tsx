@@ -1,34 +1,30 @@
 import { View, Text, StyleSheet, Button } from 'react-native'
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+
+import { MEALS } from '../data/dummy-data'
 
 const MealDetailScreen = ({ route, navigation }: any) => {
-  // const { mealId, info } = route.params
+  const [meal, setmeal]: [meal: any, setmeal: any] = useState()
+  const { mealId } = route.params
 
-  // const [count, setCount] = React.useState(0)
+  useEffect(() => {
+    const meal = MEALS.find((meal) => meal.id === mealId)
+    setmeal(meal)
+  }, [])
 
-  // React.useLayoutEffect(() => {
-  //   navigation.setOptions({
-  //     headerRight: () => (
-  //       <View style={styles.btnContainer}>
-  //         <View style={styles.btn}>
-  //           <Button onPress={() => setCount((c) => c + 1)} title="Add" />
-  //         </View>
-  //         <View style={styles.btn}>
-  //           <Button onPress={() => setCount((c) => c - 1)} title="Substract" />
-  //         </View>
-  //       </View>
-  //     ),
-  //   })
-  // }, [navigation])
+  if (meal) {
+    return (
+      <View style={styles.screen}>
+        <Text>The MealDetailScreen</Text>
+        <Text>{meal.title}</Text>
+      </View>
+    )
+  }
 
   return (
     <View style={styles.screen}>
-      <Text>The MealDetailScreen</Text>
-      {/* <Text>mealiId: {mealId}</Text>
-      <Text>info: {info}</Text>
-      <Text>Count: {count}</Text>
-      <Button title="Go to popToTop" onPress={() => navigation.popToTop()} /> */}
+      <Text>Loading...</Text>
     </View>
   )
 }
@@ -38,12 +34,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  btnContainer: {
-    flexDirection: 'row',
-  },
-  btn: {
-    marginHorizontal: 5,
   },
 })
 
