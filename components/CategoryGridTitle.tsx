@@ -40,6 +40,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     color: 'white',
     borderRadius: 20,
+    shadowColor: Colors.primaryColor,
+    shadowOffset: {
+      width: 0,
+      height: 7,
+    },
+    shadowOpacity: 0.6,
+    shadowRadius: 9.51,
+
+    elevation: 15,
   },
   gridItemText: {
     color: Colors.secondaryColor,

@@ -6,7 +6,7 @@ import { MEALS } from '../data/dummy-data'
 
 const MealDetailScreen = ({ route, navigation }: any) => {
   const [meal, setmeal]: [meal: any, setmeal: any] = useState()
-  const { mealId } = route.params
+  const { mealId, mealName } = route.params
 
   useEffect(() => {
     const meal = MEALS.find((meal) => meal.id === mealId)
@@ -17,6 +17,7 @@ const MealDetailScreen = ({ route, navigation }: any) => {
     return (
       <View style={styles.screen}>
         <Text>The MealDetailScreen</Text>
+        <Text>{meal.id}</Text>
         <Text>{meal.title}</Text>
       </View>
     )

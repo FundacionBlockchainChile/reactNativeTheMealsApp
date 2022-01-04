@@ -2,7 +2,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
   FlatList,
   SafeAreaView,
   StatusBar,
@@ -25,6 +24,7 @@ const CategoryMealScreen = ({ navigation, route }: any) => {
       onSelectMeal={() =>
         navigation.push('MealDetailScreen', {
           mealId: item.id,
+          mealName: item.title,
         })
       }
       duration={item.duration}
@@ -59,21 +59,15 @@ const styles = StyleSheet.create({
     marginTop: StatusBar.currentHeight || 0,
     width: '95%',
   },
-  item: {
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    backgroundColor: 'black',
-  },
   categoryTitle: {
     fontFamily: 'ariana',
     fontSize: 40,
     color: Colors.primaryColor,
   },
-  title: {
-    fontSize: 32,
-    color: Colors.secondaryColor,
-  },
+  // title: {
+  //   fontSize: 32,
+  //   color: Colors.secondaryColor,
+  // },
 })
 
 export default CategoryMealScreen
